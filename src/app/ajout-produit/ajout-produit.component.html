@@ -65,6 +65,17 @@
       </div>
 
       <div class="form-group">
+        <input
+          class="form-control"
+          formControlName="image"
+          [(ngModel)]="product.image"
+          required
+          type="file"
+          (change)="upload($event)"
+        />
+      </div>
+
+      <div class="form-group">
         <textarea
           class="form-control"
           placeholder="description"
@@ -77,11 +88,16 @@
       </div>
       <div class="form-group">
         <button
-          class="btn btn-success"
+          class="btn btn-success form-control"
           (click)="save()"
           [disabled]="!addProductForm.valid || exist"
         >
           Save
+        </button>
+      </div>
+      <div class="form-group" *ngIf="!isNew">
+        <button class="btn btn-danger form-control" (click)="delete()">
+          Delete
         </button>
       </div>
     </form>

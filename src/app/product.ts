@@ -1,8 +1,10 @@
 export class Product {
-    name?: String;
-    reference?: String;
-    category?: String;
-    quantity?: Number;
-    price?: Number;
-    description?: String;
+  _id?: String;
+  name?: String;
+  reference?: String;
+  category?: String;
+  quantity?: Number;
+  price?: Number;
+  description?: String;
+  image?: String;
 }

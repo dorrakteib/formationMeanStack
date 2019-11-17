@@ -3,7 +3,7 @@ import { ProductService } from "./../apis/product.service";
 import { Product } from "./../product";
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
   selector: "app-ajout-produit",
@@ -11,7 +11,11 @@ import { ActivatedRoute } from "@angular/router";
   styleUrls: ["./ajout-produit.component.css"]
 })
 export class AjoutProduitComponent implements OnInit {
-  constructor(private apis: ProductService, private route: ActivatedRoute) {}
+  constructor(
+    private apis: ProductService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
   addProductForm: FormGroup;
   category = ["eyes", "lips", "skin"];
@@ -33,7 +37,8 @@ export class AjoutProduitComponent implements OnInit {
       quantity: new FormControl([Validators.required]),
       price: new FormControl([Validators.required]),
       reference: new FormControl([Validators.required]),
-      description: new FormControl([Validators.required])
+      description: new FormControl([Validators.required]),
+      image: new FormControl()
     });
 
     this.apis.getAll().subscribe(
@@ -50,27 +55,26 @@ export class AjoutProduitComponent implements OnInit {
       err => {
         //en cas d'erreur
       }
-    );0
+    );
+    0;
   }
 
   save() {
-    //Swal.fire('saved !', 'message', 'success');
-    // Swal.fire({
-    //   title: "Are you sure?",
-    //   icon: "warning",
-    //   showCancelButton: true,
-    //   confirmButtonText: "Ok",
-    //   cancelButtonText: "Cancel"
-    
-    // }).then(result => {
-    //   if (result.value) {
-    //     Swal.fire("Saved!", "", "success");
-    //   } else {
-    //     Swal.fire("Cancelled", "", "error");
-    //   }
-    // });
-
-    this.apis.createProduct(this.product).subscribe(data => console.log(data));
+    if (this.isNew) {
+      //s'il s'agit d'un nouveau produit alors il sera ajouté  à la bd
+      this.apis.createProduct(this.product).subscribe(data => {
+        console.log(data);
+        Swal.fire("saved !", "message", "success");
+        this.router.navigate(["/produits"]);
+      });
+    } else {
+      //s'il s'agit d'un ancien produit alors il sera mis à jour
+      this.apis.updateProduct(this.product).subscribe(data => {
+        console.log(data);
+        Swal.fire("saved !", "message", "success");
+        this.router.navigate(["/produits"]);
+      });
+    }
   }
 
   testRef() {
@@ -81,5 +85,41 @@ export class AjoutProduitComponent implements OnInit {
     } else {
       this.exist = false;
     }
+  }
+
+  delete() {
+    Swal.fire("saved !", "message", "success");
+    Swal.fire({
+      title: "Are you sure?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Ok",
+      cancelButtonText: "Cancel"
+    }).then(result => {
+      if (result.value) {
+        this.apis.deleteProduct(this.product._id).subscribe(data => {
+          Swal.fire(" Deleted!", "", "success");
+          this.router.navigate(["/produits"]);
+        });
+      } else {
+        Swal.fire("Cancelled", "", "error");
+      }
+    });
+  }
+
+  upload(e) {
+    var files = e.target.files;
+    var file = files[0];
+
+    if (files && file) {
+      var reader = new FileReader();
+      reader.onload = this.loader.bind(this);
+      reader.readAsBinaryString(file);
+    }
+  }
+
+  loader(readerEvt) {
+    var binaryString = readerEvt.target.result;
+    this.product.image = "data:image/png;base64," + btoa(binaryString);
   }
 }
