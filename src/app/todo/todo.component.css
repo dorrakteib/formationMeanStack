@@ -1,0 +1,34 @@
+h1 {
+  color: red;
+}
+
+input {
+  border-radius: 5px;
+  width: 100%;
+  height: 35px;
+}
+.bloc {
+  border: 1px solid;
+  border-radius: 5px;
+  min-height: 200px;
+  margin-top: 20px;
+  padding-top: 10px;
+}
+button {
+  float: right;
+}
+ul {
+  width: 100%;
+  padding: 0px;
+}
+
+li {
+  margin: 10px;
+  padding: 5px;
+  height: 50px;
+  list-style: none;
+  font-size: 18px;
+}
+p {
+  font-size: 12px;
+}

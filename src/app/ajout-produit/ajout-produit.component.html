@@ -1,0 +1,89 @@
+<div class="content" role="main">
+  <h1>{{ "product" | translate }}</h1>
+  <div class="row col-md-7">
+    <form [formGroup]="addProductForm">
+      <div class="form-group">
+        <input
+          class="form-control"
+          placeholder="reference"
+          formControlName="reference"
+          required
+          [(ngModel)]="product.reference"
+          required
+          [placeholder]="'reference' | translate"
+          [style.background]="exist ? '#ffc2c2' : ''"
+          (change)="testRef()"
+          [disabled]="!isNew"
+        />
+        <b *ngIf="exist">This reference exists</b>
+      </div>
+      <div class="form-group">
+        <input
+          class="form-control"
+          formControlName="name"
+          required
+          [(ngModel)]="product.name"
+          placeholder="{{ 'name' | translate }}"
+        />
+      </div>
+      <div class="form-group">
+        <select
+          class="form-control"
+          required
+          placeholder="category"
+          formControlName="category"
+          [(ngModel)]="product.category"
+          required
+        >
+          <option disabled>Choose your category</option>
+          <option *ngFor="let item of category">{{ item }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <input
+          class="form-control"
+          placeholder="quantity"
+          formControlName="quantity"
+          required
+          [(ngModel)]="product.quantity"
+          required
+          [placeholder]="'quantity' | translate"
+          type="number"
+        />
+      </div>
+      <div class="form-group">
+        <input
+          class="form-control"
+          placeholder="Price"
+          required
+          formControlName="price"
+          [(ngModel)]="product.price"
+          required
+          placeholder="{{ 'price' | translate }}"
+          type="number"
+        />
+      </div>
+
+      <div class="form-group">
+        <textarea
+          class="form-control"
+          placeholder="description"
+          formControlName="description"
+          required
+          [(ngModel)]="product.description"
+          required
+          placeholder="Description"
+        ></textarea>
+      </div>
+      <div class="form-group">
+        <button
+          class="btn btn-success"
+          (click)="save()"
+          [disabled]="!addProductForm.valid || exist"
+        >
+          Save
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

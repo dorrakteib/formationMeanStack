@@ -1,0 +1,38 @@
+<div class="content" role="main">
+  <h1>{{ "isg" | translate }}</h1>
+  <div class="row col-md-7">
+    <div class="col-md-9">
+      <input [(ngModel)]="name" (keyup.enter)="addToList()" />
+    </div>
+
+    <div class="col-md-3">
+      <button class="btn btn-primary" (click)="addToList()">Add</button>
+    </div>
+  </div>
+  <div class="row col-md-7 bloc">
+    <ul>
+      <li
+        *ngFor="let item of tab; let i = index"
+        [style.background]="item.isDone ? '#caffca' : '#fff'"
+        [style.text-decoration]="item.isRemoved ? 'line-through' : ''"
+      >
+        {{ i + 1 }} - {{ item.content }}
+        <button
+          class="btn btn-success"
+          [disabled]="item.isRemoved"
+          (click)="done(i)"
+        >
+          Done
+        </button>
+        <button
+          class="btn btn-danger"
+          [disabled]="item.isDone"
+          (click)="remove(i)"
+        >
+          Remove
+        </button>
+        <p>{{ item.date | date: "medium" }}</p>
+      </li>
+    </ul>
+  </div>
+</div>

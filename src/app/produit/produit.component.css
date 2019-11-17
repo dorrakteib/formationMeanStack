@@ -1,0 +1,20 @@
+.product {
+  background: #e4e4e4;
+  padding: 20px;
+  height: 300px;
+  box-shadow: 5px 5px 5px #a4cdf9;
+  margin: 25px;
+}
+
+.footer {
+  bottom: 0;
+  position: absolute;
+}
+
+.prix {
+  color: green;
+}
+
+button {
+  float: right;
+}

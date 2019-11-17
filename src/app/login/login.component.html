@@ -1,0 +1,35 @@
+<div class="auth">
+  <h1>{{ "isg" | translate }}</h1>
+  <div *ngIf="show_alert" class="alert alert-success">Saved!</div>
+  <form [formGroup]="loginForm">
+    <div class="form-group">
+      <input
+        class="form-control"
+        formControlName="email"
+        required
+        [(ngModel)]="email"
+        email="true"
+        placeholder="Email"
+      />
+    </div>
+    <div class="form-group">
+      <input
+        class="form-control"
+        placeholder="Passowrd"
+        minlength="6"
+        formControlName="password"
+        [(ngModel)]="password"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <button
+        class="btn btn-success"
+        (click)="save()"
+        [disabled]="!loginForm.valid"
+      >
+        Save
+      </button>
+    </div>
+  </form>
+</div>
