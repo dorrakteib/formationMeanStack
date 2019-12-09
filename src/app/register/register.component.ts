@@ -1,6 +1,10 @@
+import { User } from "./../user";
 import { Component, OnInit } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { UserService } from "../apis/user.service";
+import Swal from "sweetalert2";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-register",
@@ -9,14 +13,14 @@ import { FormGroup, FormControl, Validators } from "@angular/forms";
 })
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
-  firstName;
-  lastName;
-  birthDate;
-  email;
-  password;
-  show_alert = false;
+  user: User = new User();
+  message = "";
 
-  constructor(public translate: TranslateService) {
+  constructor(
+    public translate: TranslateService,
+    private apis: UserService,
+    private router: Router
+  ) {
     translate.setDefaultLang("en");
 
     // the lang to use, if the lang isn't available, it will use the current loader to get them
@@ -37,7 +41,20 @@ export class RegisterComponent implements OnInit {
   }
 
   register() {
-    this.show_alert = true;
+    console.log(this.user);
+    this.apis.signUp(this.user).subscribe((data: any) => {
+      if (data.message) {
+        this.message = data.message;
+        Swal.fire("Erreur ", "Cette adresse email existe déja", "warning");
+      } else {
+        Swal.fire(
+          "Welcome " + this.user.firstName + " " + this.user.lastName,
+          "Votre inscription a été enregistrée avec succées",
+          "success"
+        );
+        this.router.navigate(["/login"]);
+      }
+    });
   }
 
   changeLang(lang) {

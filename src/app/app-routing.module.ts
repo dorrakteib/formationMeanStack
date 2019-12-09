@@ -1,3 +1,4 @@
+import { RegisterComponent } from "./register/register.component";
 import { DetailProduitComponent } from "./detail-produit/detail-produit.component";
 import { AjoutProduitComponent } from "./ajout-produit/ajout-produit.component";
 import { ProduitComponent } from "./produit/produit.component";
@@ -9,6 +10,7 @@ import { Routes, RouterModule } from "@angular/router";
 
 const routes: Routes = [
   { path: "login", component: LoginComponent },
+  { path: "register", component: RegisterComponent },
   {
     path: "",
     component: LayoutComponent,

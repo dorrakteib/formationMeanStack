@@ -68,7 +68,7 @@
         <input
           class="form-control"
           formControlName="image"
-          [(ngModel)]="product.image"
+          name="product.image"
           required
           type="file"
           (change)="upload($event)"
@@ -99,6 +99,10 @@
         <button class="btn btn-danger form-control" (click)="delete()">
           Delete
         </button>
+      </div>
+
+      <div *ngIf="product.image">
+        <img src="{{product.image}}" style="width: 100px;">
       </div>
     </form>
   </div>

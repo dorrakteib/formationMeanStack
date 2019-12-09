@@ -1,3 +1,4 @@
+import { User } from "./user";
 export class Product {
   _id?: String;
   name?: String;
@@ -7,4 +8,5 @@ export class Product {
   price?: Number;
   description?: String;
   image?: String;
+  userId?: User;
 }

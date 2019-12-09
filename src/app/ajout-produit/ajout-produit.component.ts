@@ -1,3 +1,4 @@
+import { User } from "./../user";
 import Swal from "sweetalert2";
 import { ProductService } from "./../apis/product.service";
 import { Product } from "./../product";
@@ -24,8 +25,15 @@ export class AjoutProduitComponent implements OnInit {
   products: Product[];
   reference;
   isNew = true;
+  user: User;
 
   ngOnInit() {
+    this.user = JSON.parse(localStorage.getItem("user"));
+    if (!this.user) {
+      this.router.navigate(["/login"]);
+    } else {
+      this.product.userId = this.user;
+    }
     this.reference = this.route.snapshot.params["reference"];
     if (this.reference) {
       this.isNew = false;

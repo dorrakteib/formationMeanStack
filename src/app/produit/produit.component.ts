@@ -1,3 +1,5 @@
+import { Router } from "@angular/router";
+import { User } from "./../user";
 import { ProductService } from "./../apis/product.service";
 import { Component, OnInit } from "@angular/core";
 
@@ -9,9 +11,17 @@ import { Component, OnInit } from "@angular/core";
 export class ProduitComponent implements OnInit {
   categorie = ["eyes", "lips", "skin"];
   products;
-  constructor(private api: ProductService) {}
+  constructor(private api: ProductService, private router: Router) {}
   productsCopy;
+  user: User;
+
   ngOnInit() {
+    this.user = JSON.parse(localStorage.getItem("user")); // reftransformer le fichier au format json
+    //
+    if (!this.user) {
+      this.router.navigate(["/login"]);
+    }
+
     this.api.getAll().subscribe(result => {
       this.products = result;
       this.productsCopy = this.products;

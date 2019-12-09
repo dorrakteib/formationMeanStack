@@ -1,6 +1,5 @@
 <div class="auth">
   <h1>{{ "inscription" | translate }}</h1>
-  <div *ngIf="show_alert" class="alert alert-success">Welcome!</div>
   <form [formGroup]="registerForm">
     <div class="form-group">
       <input
@@ -8,7 +7,7 @@
         formControlName="firstName"
         required
         minlength="3"
-        [(ngModel)]="firstName"
+        [(ngModel)]="user.firstName"
         placeholder="First Name"
       />
     </div>
@@ -18,7 +17,7 @@
         placeholder="Last Name"
         minlength="3"
         formControlName="lastName"
-        [(ngModel)]="lastName"
+        [(ngModel)]="user.lastName"
         required
       />
     </div>
@@ -28,7 +27,7 @@
         class="form-control"
         placeholder="Birth Date"
         formControlName="birthDate"
-        [(ngModel)]="birthDate"
+        [(ngModel)]="user.birthDate"
         required
       />
     </div>
@@ -37,7 +36,7 @@
         class="form-control"
         formControlName="email"
         required
-        [(ngModel)]="email"
+        [(ngModel)]="user.email"
         email="true"
         placeholder="Email"
       />
@@ -49,7 +48,7 @@
         placeholder="Passowrd"
         minlength="6"
         formControlName="password"
-        [(ngModel)]="password"
+        [(ngModel)]="user.password"
         required
       />
     </div>

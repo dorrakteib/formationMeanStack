@@ -1,6 +1,5 @@
 <div class="auth">
   <h1>{{ "isg" | translate }}</h1>
-  <div *ngIf="show_alert" class="alert alert-success">Saved!</div>
   <form [formGroup]="loginForm">
     <div class="form-group">
       <input
@@ -17,6 +16,7 @@
         class="form-control"
         placeholder="Passowrd"
         minlength="6"
+        type="password"
         formControlName="password"
         [(ngModel)]="password"
         required
